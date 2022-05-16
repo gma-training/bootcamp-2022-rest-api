@@ -14,6 +14,17 @@ export default async function handler(req, res) {
       }
       break
     }
+
+    case "PUT": {
+      const { trip, name, date, amount, currency } = req.body
+      await prisma.expense.update({
+        where: { id: parseInt(id) },
+        data: { trip, name, date, amount, currency }
+      })
+      res.status(200).end()
+      break
+    }
+
     default: {
       res.status(405).json({ message: "Method Not Allowed" })
     }
