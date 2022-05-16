@@ -1,12 +1,5 @@
 import prisma from "lib/prisma"
-
-function validatePresence(body, ...names) {
-  for (const name of names) {
-    if (!body[name]) {
-      throw `'${name}' is required`
-    }
-  }
-}
+import { validatePresence } from "lib/api"
 
 export default async function handler(req, res) {
   switch (req.method) {

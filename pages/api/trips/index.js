@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { validatePresence } from "lib/api"
 import prisma from "lib/prisma"
 
 export default async function handler(req, res) {
@@ -11,11 +12,10 @@ export default async function handler(req, res) {
     }
     case "POST": {
       const { user, name, start_date, end_date } = req.body
-      if (!user) {
-        return res.status(400).json({ message: "`user` is required" })
-      }
-      if (!name) {
-        return res.status(400).json({ message: "`name` is required" })
+      try {
+        validatePresence(req.body, "user", "name")
+      } catch (error) {
+        return res.status(400).json({ message: error })
       }
 
       await prisma.trip.create({ data: { user, name, start_date, end_date } })
