@@ -25,5 +25,12 @@ export default async function handler(req, res) {
       res.status(200).end()
       break
     }
+
+    case "DELETE": {
+      await prisma.trip.delete({ where: { id: parseInt(id) } })
+
+      res.status(200).end()
+      break
+    }
   }
 }
