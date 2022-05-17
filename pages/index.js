@@ -2,6 +2,37 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+function EndpointParams({ params }) {
+  if (params) {
+    return (
+      <>
+        <br />
+        <ul>
+          {params.map((parameter, parameterIndex) => (
+            <li key={parameterIndex}>
+              <b>{parameter.name}</b>: {parameter.description}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+}
+
+function EndpointResponse({ response }) {
+  if (response) {
+    return (
+      <>
+        <br />
+        <p>Example response:</p>
+        <pre>
+          <code>{response}</code>
+        </pre>
+      </>
+    )
+  }
+}
+
 export default function Home() {
   const endpoints = [
     {
@@ -146,27 +177,8 @@ export default function Home() {
                 <code>{endpoint.name}</code>
               </h2>
               <p>{endpoint.description}</p>
-              {endpoint.parameters && (
-                <>
-                  <br />
-                  <ul>
-                    {endpoint.parameters.map((parameter, parameterIndex) => (
-                      <li key={parameterIndex}>
-                        <b>{parameter.name}</b>: {parameter.description}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-              {endpoint.response && (
-                <>
-                  <br />
-                  <p>Example response:</p>
-                  <pre>
-                    <code>{endpoint.response}</code>
-                  </pre>
-                </>
-              )}
+              <EndpointParams params={endpoint.parameters} />
+              <EndpointResponse response={endpoint.response} />
             </div>
           ))}
         </div>
