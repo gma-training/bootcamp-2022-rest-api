@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-You'll need to connect it to a database, and point the app at the database by setting the `DATABASE_URL` environment variable. You can do that in a `.env` file containing a variable similar to this (Postgres not required; see the comments):
+You'll need to connect it to a database. Point the app at your database by setting the `DATABASE_URL` environment variable. You can do that in a `.env` file containing a variable similar to this (Postgres not required; see the comments):
 
 ```sh
 $ cat .env
@@ -24,4 +24,10 @@ $ cat .env
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 DATABASE_URL="postgresql://<user>:<password>@<hostname>:<port>/<database>"
+```
+
+Once you've defined `DATABASE_URL` and created your empty database you can create the database tables by running the migrations:
+
+```sh
+npx prisma migrate dev
 ```
